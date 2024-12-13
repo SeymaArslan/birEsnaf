@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Login: View {
+    
+    @Binding var showSignUp: Bool
+    
     //MARK: - View Properties
     @State private var emailId: String = ""
     @State private var password: String = ""
@@ -38,11 +41,33 @@ struct Login: View {
                 .font(.callout)
                 .fontWeight(.heavy)
                 .tint(.orange)
-                .hSpacing(.trailing) // 6 24
+                .hSpacing(.trailing)
+                
+                // login button
+                GradientButton(title: "Login", icon: "arrow.right") {
+                    
+                }
+                .hSpacing(.trailing)
+                
+                // disabling until the data is entered
+                .disableWithOpacity(emailId.isEmpty || password.isEmpty)
             }
             .padding(.top, 20)
             
             Spacer(minLength: 0)
+            
+            HStack(spacing: 6) {
+                Text("Don't have an account?")
+                    .foregroundStyle(.gray)
+                
+                Button("SignUp") {
+                    showSignUp.toggle()
+                }
+                .fontWeight(.bold)
+                .tint(.orange)
+            }
+            .font(.callout)
+            .hSpacing()
         })
         .padding(.vertical, 15)
         .padding(.horizontal, 25)
