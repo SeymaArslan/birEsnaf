@@ -14,6 +14,9 @@ struct Login: View {
     //MARK: - View Properties
     @State private var emailId: String = ""
     @State private var password: String = ""
+    @State private var showForgotPasswordView: Bool = false
+    // reset password view (with new password and confirmration password view
+    @State private var showResetView: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 15, content: {
             Spacer(minLength: 0)
@@ -36,7 +39,7 @@ struct Login: View {
                     .padding(.top, 5)
                 
                 Button("Forgot Password?") {
-                    
+                    showForgotPasswordView.toggle()
                 }
                 .font(.callout)
                 .fontWeight(.heavy)
@@ -72,6 +75,17 @@ struct Login: View {
         .padding(.vertical, 15)
         .padding(.horizontal, 25)
         .toolbar(.hidden, for: .navigationBar)
+        .sheet(isPresented: $showForgotPasswordView, content: {
+            if #available(iOS 16.4, *) {
+                // since I wanted a custom sheet corner radius
+                ForgotPassword(showResetView: $showResetView)
+                    .presentationDetents([.height(300)])
+                    .presentationCornerRadius(30)
+            } else {
+                ForgotPassword(showResetView: $showResetView)
+                    .presentationDetents([.height(300)])
+            }
+        })
     }
 }
 
