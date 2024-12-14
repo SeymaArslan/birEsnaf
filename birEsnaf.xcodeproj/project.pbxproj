@@ -15,6 +15,7 @@
 		1F4B04FE2D0B69B000414D6D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B04FD2D0B69B000414D6D /* Login.swift */; };
 		1F4B05012D0B6B5F00414D6D /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B05002D0B6B5F00414D6D /* View+Extensions.swift */; };
 		1FA970E12D0C6690005BC270 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA970E02D0C6690005BC270 /* GradientButton.swift */; };
+		1FD400BF2D0E0875000615D9 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD400BE2D0E0875000615D9 /* SignUp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		1F4B04FD2D0B69B000414D6D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		1F4B05002D0B6B5F00414D6D /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1FA970E02D0C6690005BC270 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		1FD400BE2D0E0875000615D9 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				1F4B04FD2D0B69B000414D6D /* Login.swift */,
 				1F12DE5C2D0B74D40074145F /* CustomTextField.swift */,
 				1FA970E02D0C6690005BC270 /* GradientButton.swift */,
+				1FD400BE2D0E0875000615D9 /* SignUp.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FD400BF2D0E0875000615D9 /* SignUp.swift in Sources */,
 				1F4B04FE2D0B69B000414D6D /* Login.swift in Sources */,
 				1FA970E12D0C6690005BC270 /* GradientButton.swift in Sources */,
 				1F4B04F12D0B680600414D6D /* ContentView.swift in Sources */,
