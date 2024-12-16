@@ -75,6 +75,8 @@ struct Login: View {
         .padding(.vertical, 15)
         .padding(.horizontal, 25)
         .toolbar(.hidden, for: .navigationBar)
+        
+        // asking email id for sending reset link
         .sheet(isPresented: $showForgotPasswordView, content: {
             if #available(iOS 16.4, *) {
                 // since I wanted a custom sheet corner radius
@@ -84,6 +86,19 @@ struct Login: View {
             } else {
                 ForgotPassword(showResetView: $showResetView)
                     .presentationDetents([.height(300)])
+            }
+        })
+        
+        // reseting new password
+        .sheet(isPresented: $showResetView, content: {
+            if #available(iOS 16.4, *) {
+                // since I wanted a custom sheet corner radius
+                PasswordResetView()
+                    .presentationDetents([.height(350)])
+                    .presentationCornerRadius(30)
+            } else {
+                PasswordResetView()
+                    .presentationDetents([.height(350)])
             }
         })
     }
