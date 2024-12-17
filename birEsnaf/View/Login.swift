@@ -21,6 +21,13 @@ struct Login: View {
         VStack(alignment: .leading, spacing: 15, content: {
             Spacer(minLength: 0)
             
+            Image("logo2")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 160, height: 160)
+                .padding(.vertical, 32)
+                
+            
             Text("Login")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
