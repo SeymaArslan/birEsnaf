@@ -10,12 +10,14 @@ import Firebase
 
 @main
 struct birEsnafApp: App {
-
+    @StateObject var viewModel = AuthViewModel()
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
         }
     }
 }

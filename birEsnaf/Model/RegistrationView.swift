@@ -15,6 +15,8 @@ struct RegistrationView: View {
     
     @Environment(\.dismiss) var dismiss // go back
     
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
         VStack {
             Image("logo2")
@@ -47,7 +49,11 @@ struct RegistrationView: View {
             .padding(.top, 12)
             
             Button {
-                print("Sign user up..")
+                Task {
+                    try await viewModel.createUser(withEmail: email,
+                                                   password: password,
+                                                   fullName: fullName)
+                }
             } label: {
                 HStack {
                     Text("SIGN UP")
