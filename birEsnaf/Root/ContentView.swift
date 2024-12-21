@@ -11,7 +11,7 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
     // View Properties
-    @State private var showSignUp: Bool = false
+    //@State private var showSignUp: Bool = false
     var body: some View {
         Group {
             if viewModel.userSession != nil {

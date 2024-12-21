@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    
     @State private var email: String = ""
     @State private var password: String = ""
     @EnvironmentObject var viewModel: AuthViewModel
@@ -42,7 +45,17 @@ struct LoginView: View {
                 // sign in button
                 Button {
                     Task {
-                        try await viewModel.signIn(withEmail: email, password: password)
+                        do {
+                            try await viewModel.signIn(withEmail: email, password: password)
+                            if !(await viewModel.isUserVerified()) {
+                                alertMessage = "Email not verified. Please check your inbox."
+                                showAlert = true
+                                try await viewModel.signOut()
+                            }
+                        } catch {
+                            alertMessage = "Failed to log in. Please check your credentials."
+                            showAlert = true
+                        }
                     }
                 } label: {
                     HStack {
@@ -57,6 +70,46 @@ struct LoginView: View {
                 .opacity(formIsValid ? 1.0 : 0.5)
                 .cornerRadius(10)
                 .padding(.top, 40)
+                
+                HStack {
+                    Button {
+                        Task {
+                            print("FPass")
+                        }
+                    } label: {
+                        HStack {
+                            Text("Forgot Password?")
+                                .font(.callout)
+                                .fontWeight(.regular)
+                                .tint(Color(Colors.blue))
+                                .opacity(mailIsEmpty ? 1.0 : 0.5)
+                                .disabled(!mailIsEmpty)
+                                .hSpacing(.centerLastTextBaseline)
+                        }
+                    }
+                    
+                    Button {
+                        Task {
+                            // Resend Verification Email
+                            if let message = await viewModel.sendEmailVerification() {
+                                alertMessage = message
+                            }
+                            showAlert = true
+                        }
+                    } label: {
+                        HStack {
+                            Text("Resend Email Verification")
+                                .font(.callout)
+                                .fontWeight(.regular)
+                                .tint(Color(Colors.blue))
+                                .opacity(mailIsEmpty ? 1.0 : 0.5)
+                                .disabled(!mailIsEmpty)
+                                .hSpacing(.centerLastTextBaseline)
+                        }
+                    }
+                }
+                .padding(.leading, -30)
+                .padding(.top, 10)
                 
                 Spacer()
                 
@@ -74,19 +127,26 @@ struct LoginView: View {
                     }
                     .font(.system(size: 14))
                 }
-
+                
             }
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Email Verification"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
     }
-    
 }
 
-extension LoginView: AuthenticationFormProtocol {
+extension LoginView: AuthenticationFormProtocol, ResendMailProtocol {
     var formIsValid: Bool {
         return !email.isEmpty
         && email.contains("@")
         && !password.isEmpty
         && password.count > 5
+    }
+    
+    var mailIsEmpty: Bool {
+        return !email.isEmpty
+        && email.contains("@")
     }
 }
 

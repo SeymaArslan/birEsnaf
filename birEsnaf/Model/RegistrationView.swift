@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct RegistrationView: View {
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    @State private var navigateToLogin: Bool = false
+    
     @State private var email: String = ""
     @State private var fullName: String = ""
     @State private var password: String = ""
@@ -46,15 +50,15 @@ struct RegistrationView: View {
                               placeHolder: "Confirm your password",
                               isSecureField: true)
                     if !password.isEmpty && !confirmPassword.isEmpty {
-                           Image(systemName: "checkmark.circle.fill")
+                        Image(systemName: "checkmark.circle.fill")
                             .imageScale(.large)
                             .fontWeight(.bold)
                             .foregroundColor(Color(.systemGreen))
                     } else {
                         Image(systemName: "xmark.circle.fill")
-                         .imageScale(.large)
-                         .fontWeight(.bold)
-                         .foregroundColor(Color(.systemRed))
+                            .imageScale(.large)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(.systemRed))
                     }
                 }
             }
@@ -63,9 +67,17 @@ struct RegistrationView: View {
             
             Button {
                 Task {
-                    try await viewModel.createUser(withEmail: email,
-                                                   password: password,
-                                                   fullName: fullName)
+                    do {
+                        try await viewModel.createUser(withEmail: email,
+                                                       password: password,
+                                                       fullName: fullName)
+                        alertMessage = "Verification email has been sent. Please check your inbox."
+                        showAlert = true
+                        navigateToLogin = true
+                    } catch {
+                        alertMessage = "Failed to send verification email. Please try again."
+                        showAlert = true
+                    }
                 }
             } label: {
                 HStack {
@@ -77,9 +89,16 @@ struct RegistrationView: View {
             }
             .background(Color(Colors.blue))
             .disabled(!formIsValid)
-            .opacity(formIsValid ? 1.0 : 0.0)
+            .opacity(formIsValid ? 1.0 : 0.5)
             .cornerRadius(10)
             .padding(.top, 24)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Registration"), message: Text(alertMessage), dismissButton: .default(Text("OK")) {
+                    if navigateToLogin {
+                        viewModel.signOut()
+                    }
+                })
+            }
             
             Spacer()
             
