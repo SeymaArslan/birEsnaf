@@ -29,4 +29,13 @@ extension View {
             .opacity(condition ? 0.5 : 1)
     }
     
+//    func setBackgroundColor(_ color: Color) -> some View {
+//        self.background(color.ignoresSafeArea())
+//    }
+}
+
+extension Color {
+    static let customBackground = Color("CustomBackground") // Assets'te tanımlı bir renk
+    static let bground = Color("backgroundColor")
+    static let customText = Color("CustomText") // Özel yazı rengi
 }

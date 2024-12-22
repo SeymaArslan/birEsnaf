@@ -22,95 +22,98 @@ struct RegistrationView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
-        VStack {
-            Image("logo2")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 160, height: 160)
-                .padding(.vertical, 32)
-            
-            VStack(spacing: 24) {
-                InputView(text: $email,
-                          title: "Email Address",
-                          placeHolder: "name@example.com")
-                .autocapitalization(.none)
+        ZStack {
+            Color.bground
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                Image("logo2")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 160, height: 160)
+                    .padding(.vertical, 32)
                 
-                InputView(text: $fullName,
-                          title: "Full Name",
-                          placeHolder: "Enter your name")
-                
-                InputView(text: $password,
-                          title: "Password",
-                          placeHolder: "Enter your password",
-                          isSecureField: true)
-                
-                ZStack(alignment: .trailing) {
-                    InputView(text: $confirmPassword,
-                              title: "Confirm Password",
-                              placeHolder: "Confirm your password",
+                VStack(spacing: 24) {
+                    InputView(text: $email,
+                              title: "Email Address",
+                              placeHolder: "name@example.com")
+                    .autocapitalization(.none)
+                    
+                    InputView(text: $fullName,
+                              title: "Full Name",
+                              placeHolder: "Enter your name")
+                    
+                    InputView(text: $password,
+                              title: "Password",
+                              placeHolder: "Enter your password",
                               isSecureField: true)
-                    if !password.isEmpty && !confirmPassword.isEmpty {
-                        Image(systemName: "checkmark.circle.fill")
-                            .imageScale(.large)
+                    
+                    ZStack(alignment: .trailing) {
+                        InputView(text: $confirmPassword,
+                                  title: "Confirm Password",
+                                  placeHolder: "Confirm your password",
+                                  isSecureField: true)
+                        if !password.isEmpty && !confirmPassword.isEmpty {
+                            Image(systemName: "checkmark.circle.fill")
+                                .imageScale(.large)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(.systemGreen))
+                        } else {
+                            Image(systemName: "xmark.circle.fill")
+                                .imageScale(.large)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(.systemRed))
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 12)
+                
+                Button {
+                    Task {
+                        do {
+                            try await viewModel.createUser(withEmail: email,
+                                                           password: password,
+                                                           fullName: fullName)
+                            alertMessage = "Verification email has been sent. Please check your inbox."
+                            showAlert = true
+                            navigateToLogin = true
+                        } catch {
+                            alertMessage = "Failed to register. \(error.localizedDescription)"
+                            showAlert = true
+                        }
+                    }            } label: {
+                    HStack {
+                        Text("SIGN UP")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                }
+                .background(Color(Colors.blue))
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1.0 : 0.5)
+                .cornerRadius(10)
+                .padding(.top, 24)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Registration"), message: Text(alertMessage), dismissButton: .default(Text("OK")) {
+                        if navigateToLogin {
+                            Task { try? await viewModel.signOut() }
+                        }
+                    })
+                }
+                
+                Spacer()
+                
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 3) {
+                        Text("Already have an account?")
+                        Text("Sign in")
                             .fontWeight(.bold)
-                            .foregroundColor(Color(.systemGreen))
-                    } else {
-                        Image(systemName: "xmark.circle.fill")
-                            .imageScale(.large)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color(.systemRed))
                     }
+                    .font(.system(size: 14))
                 }
-            }
-            .padding(.horizontal)
-            .padding(.top, 12)
-            
-            Button {
-                Task {
-                    do {
-                        try await viewModel.createUser(withEmail: email,
-                                                       password: password,
-                                                       fullName: fullName)
-                        alertMessage = "Verification email has been sent. Please check your inbox."
-                        showAlert = true
-                        navigateToLogin = true
-                    } catch {
-                        alertMessage = "Failed to send verification email. Please try again."
-                        showAlert = true
-                    }
-                }
-            } label: {
-                HStack {
-                    Text("SIGN UP")
-                        .fontWeight(.semibold)
-                }
-                .foregroundColor(.white)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 48)
-            }
-            .background(Color(Colors.blue))
-            .disabled(!formIsValid)
-            .opacity(formIsValid ? 1.0 : 0.5)
-            .cornerRadius(10)
-            .padding(.top, 24)
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Registration"), message: Text(alertMessage), dismissButton: .default(Text("OK")) {
-                    if navigateToLogin {
-                        viewModel.signOut()
-                    }
-                })
-            }
-            
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack(spacing: 3) {
-                    Text("Already have an account?")
-                    Text("Sign in")
-                        .fontWeight(.bold)
-                }
-                .font(.system(size: 14))
             }
         }
     }

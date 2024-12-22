@@ -12,7 +12,7 @@ let userDefaults = UserDefaults.standard
 public let kcurrentUser = "currentUser"
 
 struct Colors {
-    static let background = "backgroundColor"
+    
     static let cell = "cellColor"
     static let label = "labelColor2"
     static let labelColourful = "labelColor"
@@ -25,3 +25,4 @@ struct Images {
     static let logo = "logo"
     static let logoCalculate = "logo2"
 }
+

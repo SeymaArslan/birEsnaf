@@ -30,6 +30,17 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func resetPassword(email: String) async -> String {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+            print("DEBUG: Password reset email sent successfully")
+            return "Password reset email has been sent. Please check your inbox."
+        } catch {
+            print("DEBUG: Failed to send password reset email with error \(error.localizedDescription)")
+            return "Failed to send password reset email. Please try again."
+        }
+    }
+    
     func isUserVerified() async -> Bool {
         guard let user = Auth.auth().currentUser else {
             return false
@@ -45,37 +56,34 @@ class AuthViewModel: ObservableObject {
     }
     
     func sendEmailVerification() async -> String? {
-//        guard let user = Auth.auth().currentUser else {
-//            return "User is not logged in."
-//        }
-        
-        if  ((Auth.auth().currentUser?.isEmailVerified) != nil) {
+        guard let user = Auth.auth().currentUser else {
+            return "User is not logged in."
+        }
+
+        // Kullanıcının doğrulanmış olup olmadığını kontrol et
+        if user.isEmailVerified {
             return "Your email is already verified."
         }
-        
+
+        // E-posta doğrulama bağlantısını gönder
         do {
-            try await  Auth.auth().currentUser?.sendEmailVerification()
+            // Doğrulama bağlantısını gönderirken hata yakalayabiliriz
+            try await user.sendEmailVerification()
             print("DEBUG: Verification email sent successfully")
-            return "Verification email sent again. Please check your inbox."
-        } catch {
-            print("DEBUG: Failed to send verification email with error \(error.localizedDescription)")
-            return "Failed to resend verification email."
+            return "Verification email sent successfully. Please check your inbox."
+        } catch let error as NSError {
+            // Farklı hata durumları için özel mesajlar ekleyebiliriz
+            switch error.code {
+            case AuthErrorCode.networkError.rawValue:
+                return "Network error occurred. Please try again later."
+            case AuthErrorCode.userNotFound.rawValue:
+                return "User not found. Please log in again."
+            default:
+                print("DEBUG: Failed to send verification email with error \(error.localizedDescription)")
+                return "An unexpected error occurred while resending the verification email."
+            }
         }
     }
-
-//    func sendEmailVerification() async {
-//        guard let user = Auth.auth().currentUser, !user.isEmailVerified else {
-//            print("DEBUG: User is already verified or not logged in.")
-//            return
-//        }
-//        
-//        do {
-//            try await user.sendEmailVerification()
-//            print("DEBUG: Verification email sent successfully")
-//        } catch {
-//            print("DEBUG: Failed to send verification email with error \(error.localizedDescription)")
-//        }
-//    }
     
     func signIn(withEmail email: String, password: String) async throws {
         do {
@@ -87,22 +95,18 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // Kullanıcı kaydını oluştur
     func createUser(withEmail email: String, password: String, fullName: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            
-//            try await signOut()
-            
-//            self.userSession = result.user
             let user = User(id: result.user.uid, fullName: fullName, email: email)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
             
             await sendEmailVerification()
-//            await fetchUser()
             try signOut()
         } catch {
-            print("DEBUG: Faieled to create user with error \(error.localizedDescription)")
+            print("DEBUG: Failed to create user with error \(error.localizedDescription)")
             throw error
         }
     }
