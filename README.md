@@ -1,1 +1,1 @@
-Recreating a Bir Esnaf app with Swift UI
+Recreating a Bir Esnaf app with SwiftUI
