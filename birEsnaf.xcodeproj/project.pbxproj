@@ -29,6 +29,8 @@
 		1F6C5E9C2D14024C00D8FC04 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1F6C5E9B2D14024C00D8FC04 /* FirebaseStorage */; };
 		1F87E0B42D12D74F00E974E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F87E0B32D12D74E00E974E5 /* GoogleService-Info.plist */; };
 		1F87E0BA2D12DA0E00E974E5 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87E0B92D12DA0E00E974E5 /* AuthViewModel.swift */; };
+		1F949DB22D1991CF0021FFE3 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F949DB12D1991CF0021FFE3 /* Product.swift */; };
+		1F949DB72D1995880021FFE3 /* SaleResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F949DB62D1995880021FFE3 /* SaleResults.swift */; };
 		1FA970E12D0C6690005BC270 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA970E02D0C6690005BC270 /* GradientButton.swift */; };
 		1FD400BF2D0E0875000615D9 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD400BE2D0E0875000615D9 /* SignUp.swift */; };
 		1FD400C12D0E0EC5000615D9 /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD400C02D0E0EC5000615D9 /* ForgotPassword.swift */; };
@@ -62,6 +64,8 @@
 		1F5DACF12D11FCBD000FD99F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1F87E0B32D12D74E00E974E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F87E0B92D12DA0E00E974E5 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		1F949DB12D1991CF0021FFE3 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		1F949DB62D1995880021FFE3 /* SaleResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleResults.swift; sourceTree = "<group>"; };
 		1FA970E02D0C6690005BC270 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		1FD400BE2D0E0875000615D9 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		1FD400C02D0E0EC5000615D9 /* ForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 		1F4B04ED2D0B680600414D6D /* birEsnaf */ = {
 			isa = PBXGroup;
 			children = (
+				1F4B04F22D0B680700414D6D /* Assets.xcassets */,
 				1F87E0B32D12D74E00E974E5 /* GoogleService-Info.plist */,
 				1F5DACDD2D119B8F000FD99F /* App */,
 				1F4B04FF2D0B6B4400414D6D /* Helpers */,
@@ -113,7 +118,6 @@
 				1F5DACE12D119BCD000FD99F /* Core */,
 				1F5DACDF2D119BB1000FD99F /* Model */,
 				1F4B04FC2D0B694000414D6D /* View */,
-				1F4B04F22D0B680700414D6D /* Assets.xcassets */,
 				1F4B04F42D0B680700414D6D /* Preview Content */,
 			);
 			path = birEsnaf;
@@ -154,10 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				1F534EEF2D1899990078C22B /* MainTabView.swift */,
-				1F534EEE2D18997F0078C22B /* Profile */,
-				1F534EF12D1899C20078C22B /* ProductView.swift */,
-				1F534EF32D1899D20078C22B /* CompanyView.swift */,
-				1F534EF52D1899E40078C22B /* ShopView.swift */,
 			);
 			path = MainTab;
 			sourceTree = "<group>";
@@ -182,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				1F5DACF12D11FCBD000FD99F /* User.swift */,
+				1F949DB12D1991CF0021FFE3 /* Product.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -198,9 +199,10 @@
 		1F5DACE12D119BCD000FD99F /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				1F534EED2D1899660078C22B /* MainTab */,
 				1F5DACE32D119C63000FD99F /* Authentication */,
+				1F534EED2D1899660078C22B /* MainTab */,
 				1F5DACE22D119C40000FD99F /* Root */,
+				1F949DB02D1990F70021FFE3 /* Tabs */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -216,7 +218,7 @@
 		1F5DACE32D119C63000FD99F /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				1F87E0B72D12D98C00E974E5 /* Model */,
+				1F949DAF2D19902C0021FFE3 /* View */,
 				1F87E0B82D12D99D00E974E5 /* ViewModel */,
 			);
 			name = Authentication;
@@ -229,21 +231,77 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1F87E0B72D12D98C00E974E5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1F5DACE52D119CC1000FD99F /* LoginView.swift */,
-				1F5DACEB2D11EDF5000FD99F /* RegistrationView.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		1F87E0B82D12D99D00E974E5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				1F87E0B92D12DA0E00E974E5 /* AuthViewModel.swift */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		1F949DAC2D1937BA0021FFE3 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				1F534EF12D1899C20078C22B /* ProductView.swift */,
+			);
+			name = Product;
+			path = MainTab;
+			sourceTree = "<group>";
+		};
+		1F949DAD2D1937CF0021FFE3 /* Company */ = {
+			isa = PBXGroup;
+			children = (
+				1F534EF32D1899D20078C22B /* CompanyView.swift */,
+			);
+			name = Company;
+			path = MainTab;
+			sourceTree = "<group>";
+		};
+		1F949DAE2D1937DD0021FFE3 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				1F949DB52D1995670021FFE3 /* Purchase */,
+				1F949DB32D1995480021FFE3 /* Sale */,
+				1F534EF52D1899E40078C22B /* ShopView.swift */,
+				1F949DB62D1995880021FFE3 /* SaleResults.swift */,
+			);
+			name = Shop;
+			path = MainTab;
+			sourceTree = "<group>";
+		};
+		1F949DAF2D19902C0021FFE3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F5DACE52D119CC1000FD99F /* LoginView.swift */,
+				1F5DACEB2D11EDF5000FD99F /* RegistrationView.swift */,
+			);
+			name = View;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1F949DB02D1990F70021FFE3 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				1F949DAD2D1937CF0021FFE3 /* Company */,
+				1F949DAC2D1937BA0021FFE3 /* Product */,
+				1F534EEE2D18997F0078C22B /* Profile */,
+				1F949DAE2D1937DD0021FFE3 /* Shop */,
+			);
+			name = Tabs;
+			sourceTree = "<group>";
+		};
+		1F949DB32D1995480021FFE3 /* Sale */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Sale;
+			sourceTree = "<group>";
+		};
+		1F949DB52D1995670021FFE3 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Purchase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,7 +397,9 @@
 				1FD400C12D0E0EC5000615D9 /* ForgotPassword.swift in Sources */,
 				1F4B04F12D0B680600414D6D /* ContentView.swift in Sources */,
 				1F5DACF22D11FCBD000FD99F /* User.swift in Sources */,
+				1F949DB72D1995880021FFE3 /* SaleResults.swift in Sources */,
 				1F87E0BA2D12DA0E00E974E5 /* AuthViewModel.swift in Sources */,
+				1F949DB22D1991CF0021FFE3 /* Product.swift in Sources */,
 				1FD400C32D0E1C5C000615D9 /* PasswordResetView.swift in Sources */,
 				1F5DACEE2D11F71B000FD99F /* ProfileView.swift in Sources */,
 				1FD400C52D0E1E7A000615D9 /* OTPView.swift in Sources */,

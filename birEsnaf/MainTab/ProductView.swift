@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct ProductView: View {
+    
+    var productList = [
+        Product(prodId: NSUUID().uuidString, userMail: "test@test.com", prodName: "Icecream", prodTotal: "30", prodPrice: "15.0", count: nil),
+        Product(prodId: NSUUID().uuidString, userMail: "test@test.com", prodName: "Cheesecake", prodTotal: "30", prodPrice: "15.0", count: nil),
+        Product(prodId: NSUUID().uuidString, userMail: "test@test.com", prodName: "Baklava", prodTotal: "30", prodPrice: "15.0", count: nil)
+    ]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            
+            List (productList) { product in
+                Text(product.prodName!)
+            }
+
+            
+        }
     }
 }
 
