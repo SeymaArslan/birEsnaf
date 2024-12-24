@@ -28,6 +28,7 @@ struct CustomTextField: View {
             // slightly bringing down
                 .offset(y: 2)
             
+            
             VStack(alignment: .leading, spacing: 8, content: {
                 if isPassword {
                     Group {

@@ -33,6 +33,7 @@ struct RegistrationView: View {
                     .padding(.vertical, 32)
                 
                 VStack(spacing: 24) {
+                 
                     InputView(text: $email,
                               title: "Email Address",
                               placeHolder: "name@example.com")
@@ -89,6 +90,7 @@ struct RegistrationView: View {
                     .foregroundColor(.white)
                     .frame(width: UIScreen.main.bounds.width - 32, height: 48)
                 }
+                    .frame(width: 250, height: 50)
                 .background(Color(Colors.blue))
                 .disabled(!formIsValid)
                 .opacity(formIsValid ? 1.0 : 0.5)

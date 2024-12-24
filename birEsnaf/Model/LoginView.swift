@@ -40,6 +40,9 @@ struct LoginView: View {
                                   title: "Password",
                                   placeHolder: "Enter your password",
                                   isSecureField: true)
+                        
+//                        CustomTextField(sfIcon: "at", hint: "Email", value: $email)
+//                        CustomTextField(sfIcon: "lock", hint: "Password", value: $password)
                     }
                     .padding(.horizontal)
                     .padding(.top, 30)
@@ -69,11 +72,13 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width - 32, height: 48)
                     }
+                    .frame(width: 250, height: 50)
                     .background(Color(Colors.blue))
                     .disabled(!formIsValid)
                     .opacity(formIsValid ? 1.0 : 0.5)
                     .cornerRadius(10)
                     .padding(.top, 40)
+                    
                     
                     HStack {
                         Button {
@@ -135,6 +140,8 @@ struct LoginView: View {
                         }
                         .font(.system(size: 14))
                     }
+                    
+                    
                     
                 }
             }
